@@ -1,36 +1,23 @@
 //Menu Principal//
-const urldeposit ="deposit.html"
-const urlsend ="sendmoney.html"
-const urltrans ="transactions.html"
-const urllogin ="login.html"
-const btnD = document.querySelector('#btnD');
-const btnEn = document.querySelector('#btnEn');
-const btnUm = document.querySelector('#btnUm');
-const btnS = document.querySelector('#btnS');
+$(document).ready(function () {
+//variables    url
+    var urldeposit ="deposit.html";
+    var urlsend ="sendmoney.html";
+    var urltrans ="transactions.html";
+    var urllogin ="login.html";
 
-//balance//
-
-document.addEventListener('DOMContentLoaded', function(e) {
-    e.preventDefault()
-
-    let balance =500000;
-
-
-
-    const balanceDisplay = document.getElementById('balance');
-    const amountInput = localStorage.getItem('depositAmount');
-    console.log(amountInput)
-    const sendMoney = localStorage.getItem('sendMoney');
-    console.log (sendMoney);
-
+//balance Inicial
+    var balance = 500000;
+//   variables saldo deposito tranferencias
+    var balanceDisplay = $('#balance');
+    var amountInput = localStorage.getItem('depositAmount');
+    var sendMoney = localStorage.getItem('sendMoney');
+//funcion actualizar Balance
     function updateBalance() {
-        balanceDisplay.textContent = balance.toFixed(0);
-        console.log(balanceDisplay.textContent)
+        balanceDisplay.text(balance.toFixed(0));
         localStorage.setItem('balance', balance);
     }
     if(amountInput) {
-        console.log(amountInput)
-
         const amount = parseInt(amountInput);
 
 
@@ -39,10 +26,9 @@ document.addEventListener('DOMContentLoaded', function(e) {
             updateBalance();
             localStorage.setItem('amount', amount.toString());
         }
-        }
+    }
     if (sendMoney) {
         const envioDinero = parseInt(sendMoney);
-        console.log(envioDinero);
 
         if (!isNaN(envioDinero) && envioDinero <= balance) {
             balance -= envioDinero ;
@@ -53,26 +39,52 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
     }
 
-      updateBalance();
+    updateBalance();
     localStorage.removeItem('depositAmount');
     localStorage.removeItem('sendMoney');
-    });
 
 
-//botones//
-btnD.addEventListener('click', () => {
-    alert("Redirigiendo a Depositos");
-    window.location.href = urldeposit;
+//botones
+
+$('#btnD').on('click', function () {
+    showAlert('success', 'Redirigiendo a Depositos');
+    setTimeout(function () {
+        window.location.href = urldeposit;
+    }, 1000)
+    })
+
+$('#btnEn').on('click', function () {
+    showAlert('success', 'Redirigiendo a Transferencias');
+    setTimeout(function () {
+        window.location.href = urlsend;
+    }, 1000)
+
 })
-btnEn.addEventListener('click', () => {
-    alert("Redirigiendo a Enviar Dinero");
-    window.location.href = urlsend;
+$('#btnS').on('click', function () {
+    showAlert('success', 'Estas Saliendo de tu Banco Nos Vemos Pronto');
+    setTimeout(function () {
+        window.location.href = urllogin;
+    },1000)
 })
-btnUm.addEventListener('click', () => {
-    alert("Redirigiendo a Ultimos Movimientos");
-    window.location.href = urltrans;
+$('#btnUm').on('click', function () {
+    showAlert('success', 'Redirigiendo a Ultimos Movimientos');
+    setTimeout(function () {
+        window.location.href = urltrans;
+    },1000)
 })
-btnS.addEventListener('click', () => {
-    alert("Esperamos Vuelvas Pronto");
-    window.location.href = urllogin;
-})
+
+});
+//alerta
+function showAlert(type, message) {
+
+    var alertHtml = `
+            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                
+</button>
+            </div>
+        `;
+
+    $('#alert-container').append(alertHtml);
+}

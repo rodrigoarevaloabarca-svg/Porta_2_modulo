@@ -20,16 +20,17 @@
   </style>
 </head>
 <body>
+
 <div class="container">
   <div class="text-center">
     <h2>Enviar Dinero</h2>
   </div>
 
-       <div class="container mt-2">
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#datosBancariosModal">
-        Agregar Nuevo Contacto
-      </button>
-      </div>
+    <div class="container mt-2">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#datosBancariosModal">
+            Agregar Nuevo Contacto
+          </button>
+    </div>
 
     <div class="modal fade" id="datosBancariosModal" tabindex="-1" aria-labelledby="datosBancariosModalLabel" >
       <div class="modal-dialog">
@@ -49,19 +50,19 @@
               </div>
 
               <div class="mb-3">
-                <label for="Rut" class="form-label">Número de RUT</label>
-                <input type="text" class="form-control" id="Rut" name="Rut"  title="Ingrese su RUT" required>
+                <label for="rutNuevo" class="form-label">Número de RUT</label>
+                <input type="text" class="form-control" id="rutNuevo" name="Rut" pattern="^\d{7,8}-[\dKk]{1}$" title="Ingrese su RUT" required>
                 <div class="form-text">RUT</div>
               </div>
 
               <div class="mb-3">
-                <label for="alias" class="form-label">Alias</label>
-                <input type="text" class="form-control" id="alias" name="alias" required>
+                <label for="aliasNuevo" class="form-label">Alias</label>
+                <input type="text" class="form-control" id="aliasNuevo" name="alias" required>
               </div>
 
               <div class="mb-3">
-                <label for="banco" class="form-label">Nombre del Banco</label>
-                <input type="text" class="form-control" id="banco" name="banco" required>
+                <label for="bancoNuevo" class="form-label">Nombre del Banco</label>
+                <input type="text" class="form-control" id="bancoNuevo" name="banco" required>
               </div>
 
               <div class="d-grid gap-2">
@@ -81,7 +82,7 @@
 
           <div class="mb-3">
 
-            <input type="text" id="searchInput" class="form-control" placeholder="Buscar por Nombre, RUT o Alias...">
+            <input type="text" id="searchInput" class="form-control" placeholder="Buscar por Nombre, RUT o Alias">
 
           </div>
 
@@ -119,26 +120,41 @@
         </div>
       </div>
     </div>
-
-  <form id="form">
-      <div class="form-group">
-        <label for="sendMoney">Monto a Enviar:</label>
-        <input type="number" class="form-control" id="sendMoney" placeholder="Cantidad" required>
-      </div>
-      <button type="submit" class="btn btn-primary">Enviar dinero</button>
-
-  </form>
-
-  <div Class="container mb-2 mt-2 mx-auto">
-    <a id="btnMp" class="btn btn-secondary">Volver al Menú Principal</a>
-    <a id="btnS" class="btn btn-primary">Salir</a>
+  <div class="balance-container">
+    <label>Saldo Disponible:</label>
+    <h3>
+      <span id="balance"></span>
+    </h3>
   </div>
 
+    <div id="envioSection" class="d-none">
+        <form id="form">
+            <div class="form-group">
+              <label for="sendMoney">Monto a Enviar:</label>
+              <input type="number" class="form-control" id="sendMoney" placeholder="Cantidad" required>
+            </div>
+         <button type="submit" class="btn btn-primary">Enviar dinero</button>
+        </form>
+
+    </div>
+
+
+     <div Class="container mb-2 mt-2 mx-auto">
+        <a id="btnMp" class="btn btn-secondary">Volver al Menú Principal</a>
+       <a id="btnS" class="btn btn-primary">Salir</a>
+     </div>
+
+    <div Class="container">
+      <div id="alert-container" class="mb-3"></div>
+    </div>
 
 </div>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 <script src="js/sendmoney.js"></script>
+
 </body>
 </html>

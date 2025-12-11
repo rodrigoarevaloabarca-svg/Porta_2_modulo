@@ -1,27 +1,50 @@
-//Login
-//validacion email/pass
+//carga del documento
+    $(document).ready(function () {
+//revisar alertas
+        $('alert-container').empty();
+//variables
+    var $form = $('#form');
+    var urlMEnu = "menu.html";
+//captura datos
+$form.on('submit', function (evento) {
+    evento.preventDefault();
+    $('alert-container').empty();
 
-const form = document.querySelector('form');
-const urlMenu = "menu.html";
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
+    var email = $form.find('#email').val().trim();
+    console.log(email);
+    var password = $form.find('#password').val().trim();
+    console.log(password);
 
-    const email = form.email.value;
-    const password = form.password.value;
+//validacion-alerta-redireccion-reseteoCampos
 
     if (email === 'sence@gmail.com' && password === 'sence') {
-        alert('Inicio de sesión exitoso Redirecionando');
-        window.location.href = urlMenu;
-        form.reset();
+        showAlert('success','!!Inicio de sesión exitoso!! Redirecionando a Su Menu Principal');
+        setTimeout(function () {
+            window.location.href = urlMEnu;
+        },1000)
+
+        $form[0].reset();
 
     } else {
-
-        alert('Credenciales incorrectas. Por favor intenta nuevamente.');
-        form.reset();
+        showAlert('danger','Credenciales incorrectas. Por favor intenta nuevamente.');
+        $form[0].reset();
 
     }
+})
+
 });
 
 
+function showAlert(type, message) {
 
+    var alertHtml = `
+            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                
+</button>
+            </div>
+        `;
 
+    $('#alert-container').append(alertHtml);
+}

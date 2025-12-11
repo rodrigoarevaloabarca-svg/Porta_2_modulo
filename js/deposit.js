@@ -1,33 +1,63 @@
-//deposit
-const urllogin ="login.html"
-const urelmenu="menu.html"
-const btnS = document.querySelector('#btnS');
-const btnMp = document.querySelector('#btnMp');
-const form=document.querySelector("#form")
+//carga documento
+$(document).ready(function(){
+//alertas
+    $('alert-container').empty();
+//variables
+    var urlMEnu = "menu.html";
+    var urllogin ="login.html";
+    var balance = localStorage.getItem('balance');
+    var balanceDisplay = $('#balance');
+//mostrar balance
+    balanceDisplay.text(balance);
 
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const depositAmount = document.getElementById("depositAmount").value;
-    console.log(depositAmount);
+//deposito
+$('#form').on('submit',function(evento){
+    evento.preventDefault();
 
-   if ( depositAmount > 0) {
-       localStorage.setItem("depositAmount", depositAmount);
-       alert(`---Vas a Depositar ${depositAmount} Pesos a tu cuenta el deposito se vera 
-    reflejado en el menu principal---`)
-       window.location.href = urelmenu;
-       return;
-   }else {
-       alert("los montos deben ser positivos")
+    var depositAmount = $('#depositAmount').val().trim();
 
-   }
+    if ( depositAmount > 0) {
+        localStorage.setItem("depositAmount", depositAmount);
+        showAlert('success',`!!Felicitaciones Has Realizado un Deposito de $${depositAmount}`);
+        setTimeout(function(){
+            window.location.href = urlMEnu;
+    },2000)
+    }else {
+        showAlert('danger','los Montos Deben Ser Positivos')
+        setTimeout(function(){
+        $form[0].reset();
+    },1500)
+
+    }
 })
-//botones
-btnS.addEventListener('click', e => {
-    alert("Esperamos Vuelvas Pronto");
-    window.location.href = urllogin;
+
+$('#btnS').on('click', function () {
+    showAlert('success', 'Estas Saliendo De Tu Banco Nos Vemos Pronto');
+    setTimeout(function () {
+        window.location.href = urllogin;
+    }, 1000)
 })
-btnMp.addEventListener('click', e => {
-    alert("Redirigiendo a Menu Principal");
-    window.location.href= urelmenu;
+$('#btnMp').on('click', function () {
+    showAlert('success', 'Redirecionando A Su Menu Principal');
+    setTimeout(function () {
+        window.location.href = urlMEnu;
+    },1000)
+
 })
+
+});
+    function showAlert(type, message) {
+
+        var alertHtml = `
+            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                
+</button>
+            </div>
+        `;
+
+        $('#alert-container').append(alertHtml);
+    }
+
 

@@ -1,34 +1,41 @@
-//botones
+//cargar documento
+$(document).ready(function () {
+//revisar alertas
+    $('alert-container').empty();
+
+//variables
 const urllogin ="login.html"
 const urlmenu="menu.html"
-const btnS = document.querySelector('#btnS');
-const btnMp = document.querySelector('#btnMp');
 const form = document.querySelector('#form');
+//ver Saldo de la Cuenta
+var balance = localStorage.getItem('balance');
+var balanceDisplay = $('#balance');
 
+    balanceDisplay.text(balance);
+//validacion-Traferencia-guardado
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-
+//variables de otros document
     const sendMoney = document.getElementById("sendMoney").value;
     const balance = localStorage.getItem('balance');
 
     if ( sendMoney >= 0 && sendMoney <= balance) {
-        alert(`Envio Exitoso enviaras ${sendMoney} a ,Redirigido al Menu Principal`)
-        window.location.href = urlmenu;
-        localStorage.setItem("sendMoney",sendMoney);
-
-
-
+       showAlert('success', `Envio Exitoso enviaras $${sendMoney} a ,Redirigido al Menu Principal`);
+       setTimeout(function (){
+              window.location.href = urlmenu;
+    },1000)
+    localStorage.setItem("sendMoney",sendMoney);
     }else {
-            alert ('El monto no es valido o no tienes saldo suficiente')
+            showAlert('danger','El monto no es valido o no tienes saldo suficiente')
         }
 
 })
-
+//contactos
 const searchInput = document.getElementById('searchInput');
 const contactList = document.getElementById('contactList');
 const contactItems = contactList.getElementsByTagName('li');
 const selectedContactInfo = document.getElementById('selectedContactInfo');
-
+const envioSection = document.getElementById('envioSection');
 searchInput.addEventListener('keyup', function() {
     const filter = searchInput.value.toLowerCase();
 
@@ -43,7 +50,36 @@ searchInput.addEventListener('keyup', function() {
         }
     }
 });
+//Añadir contactos-modificar li y cerrar
+    const formAgregarContactos = document.getElementById('formAgregarContactos');
+    const datosBancariosModal = new bootstrap.Modal(document.getElementById('datosBancariosModal'));
 
+    formAgregarContactos.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const nombre = document.getElementById('nombreNuevo').value.trim();
+        const rut = document.getElementById('rutNuevo').value.trim();
+        const alias = document.getElementById('aliasNuevo').value.trim();
+        const banco = document.getElementById('bancoNuevo').value.trim();
+        const nuevoContactoLi = document.createElement('li');
+
+        nuevoContactoLi.className = 'list-group-item';
+        nuevoContactoLi.dataset.rut = rut;
+        nuevoContactoLi.dataset.alias = alias;
+        nuevoContactoLi.dataset.banco = banco;
+
+        nuevoContactoLi.innerHTML = `
+        <div class="contact-info">
+          <span class="contact-name fw-bold">${nombre}</span>
+          <span class="contact-details">RUT: ${rut}, Alias: ${alias}, Banco: ${banco}</span>
+        </div>
+    `;
+        contactList.appendChild(nuevoContactoLi);
+        showAlert('success', `El contacto **${nombre}** ha sido agregado con éxito.`);
+        datosBancariosModal.hide();
+        formAgregarContactos.reset();
+    });
+//selecionar Contacto
 contactList.addEventListener('click', function(event) {
     let selectedItem = event.target.closest('li.list-group-item');
 
@@ -67,15 +103,39 @@ contactList.addEventListener('click', function(event) {
         `;
         selectedContactInfo.classList.remove('alert-info');
         selectedContactInfo.classList.add('alert-success');
+        envioSection.classList.remove('d-none');
 
     }
+
 });
+
 //botone
-btnS.addEventListener('click', () => {
-    alert("Esperamos Vuelvas Pronto");
-    window.location.href = urllogin;
+
+$('#btnS').on('click', function() {
+   showAlert('success','Estas Saliendo de tu Banco Nos Vemos Pronto');
+   setTimeout(function (){
+       window.location.href = urllogin;
+   },1000)
 })
-btnMp.addEventListener('click', () => {
-    alert("Redirigiendo a Menu Principal");
-    window.location.href= urlmenu;
+$('#btnMp').on('click', function() {
+    showAlert('success', 'Redirecionando A Su Menu Principal');
+    setTimeout(function (){
+        window.location.href = urlmenu;
+    },1000)
 })
+
+})
+//Alerta
+function showAlert(type, message) {
+
+    var alertHtml = `
+            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                
+</button>
+            </div>
+        `;
+
+    $('#alert-container').append(alertHtml);
+}

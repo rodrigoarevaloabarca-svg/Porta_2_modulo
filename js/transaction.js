@@ -1,66 +1,122 @@
-//botones
+//carga de documento
+$(document).ready(function(){
+//revisar alertas
+    $('alert-container').empty();
+//variables
 const urllogin ="login.html"
 const urlmenu="menu.html"
-const btnS = document.querySelector('#btnS');
-const btnMp = document.querySelector('#btnMp');
 const amount = localStorage.getItem("amount");
-console.log(amount);
 const envioDinero = localStorage.getItem("envioDinero");
-console.log(envioDinero);
 
+//lista Ficticia
+    const listaTransacciones = [
+        { fecha: "2025-12-10", tipo: "deposito", descripcion: "Depósito en efectivo", monto: 500.00 },
+        { fecha: "2025-12-10", tipo: "compra", descripcion: "Supermercado el 9", monto: -150.75 },
+        { fecha: "2025-12-09", tipo: "transferencia_recibida", descripcion: "Pago de Juan Pérez", monto: 200.00 },
+        { fecha: "2025-12-08", tipo: "compra", descripcion: "Compra Madame Vandersexxx", monto: -85.50 },
+        { fecha: "2025-12-08", tipo: "transferencia_enviada", descripcion: "Pago de servicios Sencillito", monto: -45.00 },
+        { fecha: "2025-12-07", tipo: "deposito", descripcion: "Transferencia de otro banco", monto: 100.00 },
 
-document.addEventListener('DOMContentLoaded', (e) => {
-    e.preventDefault();
-function agregarElemento() {
-
-    const lista = document.getElementById("listaMovimientos");
-
-    if (!lista) {
-        console.error("No se encontró el elemento con id='miLista'.");
-        return;
+    ];
+//nuevoa movimientos
+    if (envioDinero) {
+        listaTransacciones.push({
+            fecha: new Date().toISOString().slice(0, 10),
+            tipo: "transferencia_enviada",
+            descripcion: "Transferencia realizada por usuario",
+            monto: -parseFloat(envioDinero)
+        });
     }
+    if (amount) {
+        listaTransacciones.push({
+            fecha: new Date().toISOString().slice(0, 10),
+            tipo: "deposito",
+            descripcion: "Deposito realizada por usuario",
+            monto: parseFloat(amount)
+        });
+    }
+//clases transacciones
+    function getTipoTransaccion(tipo) {
+        const tipos = {
+            'compra': 'Compra ',
+            'deposito': 'Depósito ',
+            'transferencia_recibida': 'Transferencia Recibida ',
+            'transferencia_enviada': 'Transferencia Enviada ',
+            'todos': 'Todos los Movimientos'
+        };
+        return tipos[tipo] || tipo;
+    }
+//actualizar-filtrar
+    function mostrarUltimosMovimientos(filtro = 'todos') {
+        $('#listaMovimientos').empty();
+        let movimientosFiltrados = listaTransacciones;
 
-    const nuevoLi = document.createElement("li");
-    const nuevoContenido = document.createTextNode(`Deposito ${amount}`);
+         if (filtro !== 'todos') {
+            movimientosFiltrados = listaTransacciones.filter(transaccion => transaccion.tipo === filtro);
+        }
 
-    nuevoLi.appendChild(nuevoContenido);
-
-    lista.appendChild(nuevoLi);
-}
-if (amount > 0){
-    agregarElemento();
-}
-})
-document.addEventListener('DOMContentLoaded', (e) => {
-    e.preventDefault();
-    function agregarElemento() {
-
-        const lista = document.getElementById("listaMovimientos");
-
-        if (!lista) {
-            console.error("No se encontró el elemento con id='miLista'.");
+        if (movimientosFiltrados.length === 0) {
+            $('#listaMovimientos').append('<li class="list-group-item">No hay movimientos para el filtro seleccionado.</li>');
             return;
         }
 
-        const nuevoLi = document.createElement("li");
-        const nuevoContenido = document.createTextNode(`Retiro ${envioDinero}`);
+        movimientosFiltrados.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
 
-        nuevoLi.appendChild(nuevoContenido);
+        movimientosFiltrados.forEach(mov => {
+            const claseColor = mov.monto < 0 ? 'text-danger' : 'text-success';
+            const signo = mov.monto < 0 ? '-' : '+';
+            const montoAbsoluto = Math.abs(mov.monto).toFixed(2);
+            const tipoLegible = getTipoTransaccion(mov.tipo);
 
-        lista.appendChild(nuevoLi);
+            const listItem = `
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <small class="text-muted">${mov.fecha}</small>
+                    <div class="fw-bold">${tipoLegible}</div>
+                    <div>${mov.descripcion}</div>
+                </div>
+                <span class="fs-5 ${claseColor}">
+                    ${signo}$${montoAbsoluto}
+                </span>
+            </li>
+        `;
+            $('#listaMovimientos').append(listItem);
+        });
     }
-    if (envioDinero > 0){
-        agregarElemento();
-    }
-})
 
+    mostrarUltimosMovimientos('todos');
 
-//botone
-btnS.addEventListener('click', () => {
-    alert("Esperamos Vuelvas Pronto");
-    window.location.href = urllogin;
+    $('#filtroTipo').on('change', function() {
+        const filtroSeleccionado = $(this).val();
+        mostrarUltimosMovimientos(filtroSeleccionado);
+    });
+
+//botones
+
+$('#btnS').on('click', function() {
+    showAlert('success','Estas Saliendo de tu Banco Nos Vemos Pronto');
+    setTimeout(function (){
+        window.location.href = urllogin;
+    },1000)
 })
-btnMp.addEventListener('click', () => {
-    alert("Redirigiendo a Menu Principal");
-    window.location.href= urlmenu;
+$('#btnMp').on('click', function() {
+    showAlert('success', 'Redirecionando A Su Menu Principal');
+    setTimeout(function () {
+        window.location.href = urlmenu;
+    }, 1000)
 })
+})
+//Alerta
+function showAlert(type, message) {
+
+    var alertHtml = `
+            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                
+</button>
+            </div>
+        `;
+
+    $('#alert-container').append(alertHtml);
+}
