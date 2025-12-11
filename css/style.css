@@ -1,0 +1,33 @@
+body {
+    background-image: linear-gradient(#fcd8f7,white) ;
+    }
+
+.circle-link {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: #6c2b66;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.circle-link:hover {
+    background-color: #f068e3;
+    transform: scale(1.05);
+    color: white;
+}
+
+.full-height-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+}
