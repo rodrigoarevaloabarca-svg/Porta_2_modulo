@@ -31,3 +31,12 @@ body {
     align-items: flex-start;
 
 }
+.alert-custom {
+    background-color: #f590e9;
+    border-color: #5d38a0;
+    color: #ffffff;
+}
+
+.alert-custom .btn-close {
+    /* Mismo cambio para el botón de cerrar si usas un fondo oscuro */
+}

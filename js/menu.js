@@ -43,7 +43,7 @@ $(document).ready(function () {
     localStorage.removeItem('depositAmount');
     localStorage.removeItem('sendMoney');
 
-
+    $('alert-container').empty();
 //botones
 
 $('#btnD').on('click', function () {
