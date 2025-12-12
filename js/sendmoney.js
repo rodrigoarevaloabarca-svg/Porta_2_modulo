@@ -20,7 +20,7 @@ form.addEventListener('submit', (e) => {
     const balance = localStorage.getItem('balance');
 
     if ( sendMoney >= 0 && sendMoney <= balance) {
-       showAlert('success', `Envio Exitoso enviaras $${sendMoney} a ,Redirigido al Menu Principal`);
+       showAlert('custom', `Envio Exitoso enviaras $${sendMoney} a ,Redirigido al Menu Principal`);
        setTimeout(function (){
               window.location.href = urlmenu;
     },1000)
@@ -75,7 +75,7 @@ searchInput.addEventListener('keyup', function() {
         </div>
     `;
         contactList.appendChild(nuevoContactoLi);
-        showAlert('success', `El contacto **${nombre}** ha sido agregado con éxito.`);
+        showAlert('custom', `El contacto **${nombre}** ha sido agregado con éxito.`);
         datosBancariosModal.hide();
         formAgregarContactos.reset();
     });
@@ -102,7 +102,7 @@ contactList.addEventListener('click', function(event) {
             <strong>Banco:</strong> ${banco}
         `;
         selectedContactInfo.classList.remove('alert-info');
-        selectedContactInfo.classList.add('alert-success');
+        selectedContactInfo.classList.add('alert-custom');
         envioSection.classList.remove('d-none');
 
     }
@@ -112,13 +112,13 @@ contactList.addEventListener('click', function(event) {
 //botone
 
 $('#btnS').on('click', function() {
-   showAlert('success','Estas Saliendo de tu Banco Nos Vemos Pronto');
+   showAlert('custom','Estas Saliendo de tu Banco Nos Vemos Pronto');
    setTimeout(function (){
        window.location.href = urllogin;
    },1000)
 })
 $('#btnMp').on('click', function() {
-    showAlert('success', 'Redirecionando A Su Menu Principal');
+    showAlert('custom', 'Redirecionando A Su Menu Principal');
     setTimeout(function (){
         window.location.href = urlmenu;
     },1000)

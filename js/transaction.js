@@ -94,13 +94,13 @@ const envioDinero = localStorage.getItem("envioDinero");
 //botones
 
 $('#btnS').on('click', function() {
-    showAlert('success','Estas Saliendo de tu Banco Nos Vemos Pronto');
+    showAlert('custom','Estas Saliendo de tu Banco Nos Vemos Pronto');
     setTimeout(function (){
         window.location.href = urllogin;
     },1000)
 })
 $('#btnMp').on('click', function() {
-    showAlert('success', 'Redirecionando A Su Menu Principal');
+    showAlert('custom', 'Redirecionando A Su Menu Principal');
     setTimeout(function () {
         window.location.href = urlmenu;
     }, 1000)

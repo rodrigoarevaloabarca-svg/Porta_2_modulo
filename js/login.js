@@ -18,7 +18,7 @@ $form.on('submit', function (evento) {
 //validacion-alerta-redireccion-reseteoCampos
 
     if (email === 'sence@gmail.com' && password === 'sence') {
-        showAlert('success','!!Inicio de sesión exitoso!! Redirecionando a Su Menu Principal');
+        showAlert('custom','!!Inicio de sesión exitoso!! Redirecionando a Su Menu Principal');
         setTimeout(function () {
             window.location.href = urlMEnu;
         },1000)

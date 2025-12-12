@@ -47,27 +47,27 @@ $(document).ready(function () {
 //botones
 
 $('#btnD').on('click', function () {
-    showAlert('success', 'Redirigiendo a Depositos');
+    showAlert('custom', 'Redirigiendo a Depositos');
     setTimeout(function () {
         window.location.href = urldeposit;
     }, 1000)
     })
 
 $('#btnEn').on('click', function () {
-    showAlert('success', 'Redirigiendo a Transferencias');
+    showAlert('custom', 'Redirigiendo a Transferencias');
     setTimeout(function () {
         window.location.href = urlsend;
     }, 1000)
 
 })
 $('#btnS').on('click', function () {
-    showAlert('success', 'Estas Saliendo de tu Banco Nos Vemos Pronto');
+    showAlert('custom', 'Estas Saliendo de tu Banco Nos Vemos Pronto');
     setTimeout(function () {
         window.location.href = urllogin;
     },1000)
 })
 $('#btnUm').on('click', function () {
-    showAlert('success', 'Redirigiendo a Ultimos Movimientos');
+    showAlert('custom', 'Redirigiendo a Ultimos Movimientos');
     setTimeout(function () {
         window.location.href = urltrans;
     },1000)

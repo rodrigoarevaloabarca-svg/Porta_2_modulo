@@ -18,7 +18,7 @@ $('#form').on('submit',function(evento){
 
     if ( depositAmount > 0) {
         localStorage.setItem("depositAmount", depositAmount);
-        showAlert('success',`!!Felicitaciones Has Realizado un Deposito de $${depositAmount}`);
+        showAlert('custom',`!!Felicitaciones Has Realizado un Deposito de $${depositAmount}`);
         setTimeout(function(){
             window.location.href = urlMEnu;
     },2000)
@@ -32,13 +32,13 @@ $('#form').on('submit',function(evento){
 })
 
 $('#btnS').on('click', function () {
-    showAlert('success', 'Estas Saliendo De Tu Banco Nos Vemos Pronto');
+    showAlert('custom', 'Estas Saliendo De Tu Banco Nos Vemos Pronto');
     setTimeout(function () {
         window.location.href = urllogin;
     }, 1000)
 })
 $('#btnMp').on('click', function () {
-    showAlert('success', 'Redirecionando A Su Menu Principal');
+    showAlert('custom', 'Redirecionando A Su Menu Principal');
     setTimeout(function () {
         window.location.href = urlMEnu;
     },1000)

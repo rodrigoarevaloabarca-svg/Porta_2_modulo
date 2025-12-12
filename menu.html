@@ -6,34 +6,45 @@
     <title>Wallet - Menú Principal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <style>
-        body {
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+    <main id="container-menu">
         <div class="container">
             <div id="alert-container" class="mb-3">
+            </div>
+                <h2 id="h1">Menú Principal</h2>
+            <div class="balance-container">
+                <label id="ph1">Saldo disponible:</label>
+                <h3>
+                    <span id="balance"></span>
+                </h3>
+            </div>
+            <a id="btnD"  class="btn  btn-custom-alke">Depositar</a>
+            <a id="btnEn" class="btn btn-custom-alke">Enviar Dinero</a>
+            <a id="btnUm" class="btn btn-custom-alke">Últimos Movimientos</a>
+            <a id="btnS" class="btn btn-custom-alke">Salir</a>
         </div>
-    <h2>Menú Principal</h2>
-    <div class="balance-container">
-        <label>Saldo disponible:</label>
-        <h3>
-            <span id="balance"></span>
-        </h3>
-    </div>
-    <a id="btnD" class="btn btn-primary">Depositar</a>
-    <a id="btnEn" class="btn btn-primary">Enviar Dinero</a>
-    <a id="btnUm" class="btn btn-primary">Últimos Movimientos</a>
-    <a id="btnS" class="btn btn-primary">Salir</a>
-</div>
+    </main>
+        <footer class="footer-custom  py-3 bg-light">
+            <div class="container">
+                <div class="row align-items-center">
+
+                    <div class="col-md-6 text-center text-md-start">
+                   <span class="text-muted">
+                         &copy; 2025 Alke Wallet. Todos los derechos reservados.
+                   </span>
+                    </div>
+
+                    <div class="col-md-6 text-center text-md-end">
+                    <span class="text-muted small">
+                          Creado ️ por <strong>Rodrigo Arevalo</strong>.
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
